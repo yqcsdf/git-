@@ -1,12 +1,12 @@
-创建并切换到分支：git checkout -b your-dev；
+创建并切换到分支：git checkout -b num-feat-name；
 
-编程完成后 git add . 保存到暂存区；
+VSCODE下可用视图化操作将文件存入暂存区以及提交；
 
-之后使用git commit -m '本次提交的备注' 将代码提交；
+命令行下使用git add . 存入暂存区, git commit -m '备注' 提交；
 
-合并某分支到当前分支：git merge your-dev；(先切换到主分支)；
+合并某分支到当前分支：git merge num-feat-name；（先切换到主分支）；
 
-合并完成后可以执行删除自己的分支：git branch -D your-dev (大写D为强制删除)；
+合并完成后可以执行删除自己的分支：git branch -D num-feat-name；
 
 删除后查看分支目录：git branch；
 
@@ -15,10 +15,23 @@ git commit --amend  补充后续提交 （会进入vm编辑器，此时输入:wq
 git push -f origin 强制上传；
 
 解决冲突方法：
-	   git checkout develop(就是master)切换到主分支,先git pull代码 ，之后切换到自己的分支 git checkout your-dev；
+	   git checkout develop切换到主分支,pull代码 ，切换到自己的分支git checkout xxx；
 	   在自己的分支下，输入 git rebase develop 进行冲突检查，提示冲突后手动修改，提交到缓存区；
-	   修改完成后在自己分支下输入 git rebase --continue；进行提交,不需输入commit；
+	   修改完成后在自己分支下输入 git rebase --continue 进行提交,不需要commit；
 	   最后再次 git push -f origin 上传；
-           这样在gitlab的MR提交目录下只会存在一个commit，便于同事之间查看与后续修改维护代码；
-     
-           目前只是一些个人常用的指令，对于整体的流程也许不够详细规范，后续会慢慢补充；
+
+
+=== 后端接口环境部署 ===
+
+git clone 项目
+rvm install x.x.x 安装项目使用的ruby版本
+rvm list 查看已安装ruby版本
+gem install bundler 安装bundler依赖
+bundle
+cp config/database.yml.example config/database.yml 基于example创建数据库配置文件
+rake db:create 创建数据库
+rake db:migrate 迁移
+gem install foreman
+gem install subcontractor
+cp Procfile.example Procfile 基于example创建Procfile配置文件
+rails start 运行
